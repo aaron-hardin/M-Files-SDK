@@ -9,6 +9,7 @@ using MFiles.SDK.Tasks.PackageDefinition;
 using MFiles.SDK.Tasks.PackageModel;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using React;
 
 namespace MFiles.SDK.Tasks
 {
@@ -54,7 +55,19 @@ namespace MFiles.SDK.Tasks
 			// Add the project files.
 			foreach( var file in files )
 			{
-				outputZip.AddFile( file.FullPath ).FileName = file.PathInProject;
+				if( Path.GetFileName( file.FullPath ) == "Application.js" )
+				{
+					var babel = ReactEnvironment.Current.Babel;
+					// Transpiles a file
+					// You can instead use `TransformFileWithSourceMap` if you want a source map too.
+					var result = babel.TransformFile( file.FullPath );
+
+					outputZip.AddEntry( "Application.js", result ).FileName = file.PathInProject;
+				}
+				else
+				{
+					outputZip.AddFile( file.FullPath ).FileName = file.PathInProject;
+				}
 			}
 
 			// Add the referenced scripts.
