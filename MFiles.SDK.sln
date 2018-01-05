@@ -1,18 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E31520C-8E0A-4A71-B537-3127BF56A599}"
 	ProjectSection(SolutionItems) = preProject
 		Key.snk = Key.snk
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{3A996AAC-E661-48D9-AABD-46D2EFBD1272}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFiles.SDK.VisualStudio.Application", "MFiles.SDK.VisualStudio.Application\MFiles.SDK.VisualStudio.Application.csproj", "{21009F94-7AB4-45EC-9AB8-37527DBB7963}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFiles.SDK.Tasks", "MFiles.SDK.Tasks\MFiles.SDK.Tasks.csproj", "{8A20FD5C-509B-499B-97AD-E387D5D5B194}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "MFiles.SDK.Setup", "MFiles.SDK.Setup\MFiles.SDK.Setup.wixproj", "{A50D47EA-1F31-453A-BBA0-750E16D5F5EC}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{3A996AAC-E661-48D9-AABD-46D2EFBD1272}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -60,5 +62,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A50D47EA-1F31-453A-BBA0-750E16D5F5EC} = {3A996AAC-E661-48D9-AABD-46D2EFBD1272}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D4F77AAD-15B3-4557-B74D-5045150573DF}
 	EndGlobalSection
 EndGlobal

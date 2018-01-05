@@ -3,4 +3,5 @@ obj
 *.csproj.user
 *.suo
 *.swp
-
+.vs
+packages
