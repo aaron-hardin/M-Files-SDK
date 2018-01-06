@@ -95,6 +95,7 @@
     <Compile Include="PackageModel\Reference.cs" />
     <Compile Include="PackageModel\PackageFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReactConfig.cs" />
     <Compile Include="ReloadMFilesVault.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

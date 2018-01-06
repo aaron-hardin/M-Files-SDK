@@ -52,6 +52,8 @@ namespace MFiles.SDK.Tasks
 				File.Delete( OutputFile );
 			var outputZip = new Ionic.Zip.ZipFile( OutputFile );
 
+			ReactConfig.Configure();
+
 			// Add the project files.
 			foreach( var file in files )
 			{

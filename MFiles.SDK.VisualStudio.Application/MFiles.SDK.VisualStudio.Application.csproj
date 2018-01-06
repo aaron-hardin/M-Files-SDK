@@ -10,6 +10,8 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
     <ProjectBasePath>..\Libs\Microsoft.VisualStudio.Project</ProjectBasePath>
@@ -212,6 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <ZipProject Include="Templates\Projects\MFilesApplication\MFilesApplication.vstemplate" />
+    <None Include="app.config" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
