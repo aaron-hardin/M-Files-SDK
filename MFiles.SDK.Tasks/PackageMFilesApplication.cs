@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using Ionic.Zip;
 using MFiles.SDK.Tasks.PackageDefinition;
@@ -57,14 +58,16 @@ namespace MFiles.SDK.Tasks
 			// Add the project files.
 			foreach( var file in files )
 			{
-				if( Path.GetFileName( file.FullPath ) == "Application.js" )
+				// TODO: enhance mfproj to support exclusions?
+				var fileName = Path.GetFileName( file.FullPath );
+				var shouldProcess = fileName != null && Regex.IsMatch(fileName, @".+\.jsx?$");
+				Log.LogMessage( MessageImportance.High, $"Processing: {fileName} - {shouldProcess}" );
+				if( shouldProcess )
 				{
 					var babel = ReactEnvironment.Current.Babel;
-					// Transpiles a file
-					// You can instead use `TransformFileWithSourceMap` if you want a source map too.
 					var result = babel.TransformFile( file.FullPath );
 
-					outputZip.AddEntry( "Application.js", result ).FileName = file.PathInProject;
+					outputZip.AddEntry( fileName, result ).FileName = file.PathInProject;
 				}
 				else
 				{

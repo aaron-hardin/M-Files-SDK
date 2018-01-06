@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using React;
-using React.TinyIoC;
 
 namespace MFiles.SDK.Tasks
 {
