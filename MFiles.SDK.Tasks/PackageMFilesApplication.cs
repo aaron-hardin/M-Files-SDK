@@ -75,9 +75,18 @@ namespace MFiles.SDK.Tasks
 				if( shouldProcess )
 				{
 					var babel = ReactEnvironment.Current.Babel;
+					Log.LogMessage( MessageImportance.Low, $"Transforming: {fileName}" );
 					var result = babel.TransformFile( file.FullPath );
+					Log.LogMessage( MessageImportance.Low, $"Transformed: {fileName}" );
+					var path = file.PathInProject;
+					if( Path.GetExtension( fileName ) == ".jsx" )
+					{
+						fileName = Path.ChangeExtension( fileName, "js" );
+						path = Path.ChangeExtension( path, "js" );
+					}
 
-					outputZip.AddEntry( fileName, result ).FileName = file.PathInProject;
+					outputZip.AddEntry( fileName, result ).FileName = path;
+					Log.LogMessage( MessageImportance.Low, $"AddedToZip: {fileName}" );
 				}
 				else
 				{

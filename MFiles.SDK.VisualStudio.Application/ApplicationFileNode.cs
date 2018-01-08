@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using MFiles.SDK.VisualStudio.Application.ItemProperties;
 using Microsoft.VisualStudio.Project;
 
@@ -25,7 +20,7 @@ namespace MFiles.SDK.VisualStudio.Application
 			var extension = Path.GetExtension( this.Url ) ?? "";
 			extension = extension.ToLowerInvariant();
 
-			if( extension == ".js" )
+			if( extension == ".js" || extension == ".jsx" )
 				return new ScriptProperties( this );
 			if( extension == ".html" )
 				return new DashboardProperties( this );
