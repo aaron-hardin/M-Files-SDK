@@ -42,6 +42,7 @@
       Name="CoreCompile"
       Inputs="$(MSBuildAllProjects);
               @(Compile);
+              @(None);
               @(ReferencePath);
               @(_ResolvedProjectReferencePaths);
               @(_Reference)"
@@ -49,11 +50,21 @@
       DependsOnTargets="$(CoreCompileDependsOn)"
     >
     <PackageMFilesApplication
-      Name="$(Name)"
+      ApplicationName="$(ApplicationName)"
       Guid="$(ProjectGuid)"
+      ApplicationVersion="$(ApplicationVersion)"
+      Description="$(Description)"
+      Publisher="$(Publisher)"
+      Copyright="$(Copyright)"
+      MFilesVersion="$(MFilesVersion)"
+      MasterApplicationGuid="$(MasterApplicationGuid)"
+      EnabledByDefault="$(EnabledByDefault)"
+      Optional="$(Optional)"
+      Platforms="$(Platforms)"
       DefaultEnvironments="$(DefaultEnvironments)"
       References="@(Reference);@(_ResolvedProjectReferencePaths)"
       SourceFiles="@(Compile)"
+      NoBuildFiles="@(None)"
       OutputFile="@(IntermediateAssembly)"
       />
   </Target>

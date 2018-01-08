@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.Project;
 
 namespace MFiles.SDK.VisualStudio.Application.ItemProperties
 {
 	[ComVisible(true), CLSCompliant(false)]
-	[Guid("919C0ED9-CCE1-4770-ADAE-9D9DA7423BEB")]	
+	[Guid("919C0ED9-CCE1-4770-ADAE-9D9DA7423BEB")]
 	public class ScriptProperties : FileNodeProperties
 	{
 		public ScriptProperties( ApplicationFileNode node )

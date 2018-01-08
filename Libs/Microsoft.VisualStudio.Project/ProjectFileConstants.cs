@@ -74,6 +74,7 @@ namespace Microsoft.VisualStudio.Project
 		[SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "SubProject")]
 		public const string SubProject = "SubProject";
 		public const string BuildAction = "BuildAction";
+		public const string CopyToOutputDirectory = "CopyToOutputDirectory";
 		[SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "COM")]
 		public const string COMReference = "COMReference";
 		public const string Guid = "Guid";

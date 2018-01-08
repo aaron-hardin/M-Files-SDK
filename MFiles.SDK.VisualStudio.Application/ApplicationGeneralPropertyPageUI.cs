@@ -49,7 +49,16 @@ namespace MFiles.SDK.VisualStudio.Application
 			if( environmentVaultCoreInput.Checked ) environments.Add( "VaultCore" );
 			properties.SetProperty( "DefaultEnvironments", string.Join( ";", environments.ToArray() ) );
 
+			List<string> platforms = new List<string>();
+			if( this.platformDesktopInput.Checked )
+				platforms.Add( "Desktop" );
+			if( this.platformWebInput.Checked )
+				platforms.Add( "Web" );
+			properties.SetProperty( "Platforms", string.Join( ";", platforms.ToArray() ) );
+
 			properties.SetProperty( "Publisher", publisherInput.Text );
+			properties.SetProperty( "Copyright", this.copyrightInput.Text );
+			properties.SetProperty( "MasterApplicationGuid", this.masterApplicationGuidInput.Text );
 
 			properties.SetProperty( "ApplicationVersion", GetVersion(
 					applicationVersionMajor.Text,
@@ -65,6 +74,7 @@ namespace MFiles.SDK.VisualStudio.Application
 
 			properties.SetProperty( "Description", descriptionInput.Text );
 			properties.SetProperty( "EnabledByDefault", enabledDefaultInput.Checked ? "true" : "false" );
+			properties.SetProperty( "Optional", enabledDefaultInput.Checked ? "true" : "false" );
 		}
 
 		/// <summary>
@@ -76,6 +86,10 @@ namespace MFiles.SDK.VisualStudio.Application
 			packageNameInput.Text = GetProperty( properties, "AssemblyName", "MFilesApplication" );
 			defaultNamespaceInput.Text = GetProperty( properties, "RootNamespace", "MFilesApplication" );
 
+			var platforms = GetProperty( properties, "Platforms", "Desktop;Web" ).ToLower().Split( ';' );
+			this.platformDesktopInput.Checked = platforms.Contains( "desktop" );
+			this.platformWebInput.Checked = platforms.Contains( "web" );
+
 			var environments = GetProperty( properties, "DefaultEnvironments", "shellui;vaultui;vaultcore" ).ToLower().Split( ';' );
 
 			environmentShellUiInput.Checked = environments.Contains( "shellui" );
@@ -83,6 +97,8 @@ namespace MFiles.SDK.VisualStudio.Application
 			environmentVaultCoreInput.Checked = environments.Contains( "vaultcore" );
 
 			publisherInput.Text = GetProperty( properties, "Publisher", "" );
+			this.copyrightInput.Text = GetProperty( properties, "Copyright", "" );
+			this.masterApplicationGuidInput.Text = GetProperty( properties, "MasterApplicationGuid", "" );
 
 			var applicationVersion = GetVersionSegments( GetProperty( properties, "ApplicationVersion", "1.0.0.0" ) );
 			applicationVersionMajor.Text = applicationVersion[ 0 ];
@@ -96,8 +112,11 @@ namespace MFiles.SDK.VisualStudio.Application
 			mfilesVersionRevision.Text = mfilesVersion[ 2 ];
 			mfilesVersionBuild.Text = mfilesVersion[ 3 ];
 
+			// TODO: property names should be constants
 			descriptionInput.Text = GetProperty( properties, "Description", "An M-Files application." );
 			enabledDefaultInput.Checked = GetProperty( properties, "EnabledByDefault", "true" ).ToLower() != "false";
+			this.optionalInput.Checked = GetProperty( properties, "Optional", "true" ).ToLower() != "false";
+			//Optional
 		}
 
 		private string GetProperty( ProjectProperties properties, string name, string defaultValue )

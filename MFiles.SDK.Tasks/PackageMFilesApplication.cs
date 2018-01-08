@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,19 +24,24 @@ namespace MFiles.SDK.Tasks
 			// Make sure the collections are never null.
 			References = References ?? new ITaskItem[ 0 ];
 			SourceFiles = SourceFiles ?? new ITaskItem[ 0 ];
+			NoBuildFiles = NoBuildFiles ?? new ITaskItem[ 0 ];
 			DefaultEnvironments = DefaultEnvironments ?? new string[ 0 ];
 
 			// Create the application package contents.
 			var references = References.Select( item => new Reference( item ) ).ToList();
-			var files = SourceFiles.Select( item => new PackageFile( item ) ).ToList();
+			var files = SourceFiles.Select( item => new PackageFile( item, BuildAction.Compile ) ).ToList();
+			files.AddRange(NoBuildFiles.Select(item => new PackageFile( item, BuildAction.None )).Where(file => file.CopyToOutputDirectory));
 
 			var appDef = CreateApplicationDefinition( references, files );
 			var outputZip = CreatePackage( references, files );
 
 			// Serialize the application definition file.
+			var namespaces = new XmlSerializerNamespaces();
+			namespaces.Add( "xsi", "http://www.w3.org/2001/XMLSchema-instance" ); // TODO: is this correct?
+			namespaces.Add( "xsd", "http://www.m-files.com/schemas/appdef-client-v3.xsd" ); // TODO: is this correct?
 			var stream = new MemoryStream();
 			var serializer = new XmlSerializer( typeof( ApplicationDefinition ) );
-			serializer.Serialize( stream, appDef );
+			serializer.Serialize( stream, appDef, namespaces );
 			stream.Flush();
 			stream.Position = 0;
 			outputZip.AddEntry( "appdef.xml", stream );
@@ -51,16 +57,20 @@ namespace MFiles.SDK.Tasks
 			// Create the package.
 			if( File.Exists( OutputFile ) )
 				File.Delete( OutputFile );
-			var outputZip = new Ionic.Zip.ZipFile( OutputFile );
+			var outputZip = new ZipFile( OutputFile );
 
 			ReactConfig.Configure();
 
 			// Add the project files.
 			foreach( var file in files )
 			{
-				// TODO: enhance mfproj to support exclusions?
+				if( file.BuildAction == BuildAction.None && file.CopyToOutputDirectory == false )
+				{
+					continue;
+				}
+
 				var fileName = Path.GetFileName( file.FullPath );
-				var shouldProcess = fileName != null && Regex.IsMatch(fileName, @".+\.jsx?$");
+				var shouldProcess = file.BuildAction == BuildAction.Compile && fileName != null && Regex.IsMatch(fileName, @".+\.jsx?$");
 				Log.LogMessage( MessageImportance.High, $"Processing: {fileName} - {shouldProcess}" );
 				if( shouldProcess )
 				{
@@ -115,7 +125,20 @@ namespace MFiles.SDK.Tasks
 			specifiedEnvironments = specifiedEnvironments.Union( defaultEnvironments );
 
 			Guid = Guid.Replace( "{", "" ).Replace( "}", "" );
-			ApplicationDefinition appdef = new ApplicationDefinition { Name = Name, Guid = Guid };
+			ApplicationDefinition appdef = new ApplicationDefinition
+			{
+				Name = ApplicationName,
+				Guid = Guid,
+				Version = ApplicationVersion,
+				Description = Description,
+				Publisher = Publisher,
+				Copyright = Copyright,
+				RequiredMFilesVersion = MFilesVersion,
+				EnabledByDefault = EnabledByDefault,
+				Optional = Optional,
+				MasterApplicationGuid = MasterApplicationGuid,
+				Platforms = Platforms.Select(platformName => new Platform(platformName)).ToList()
+			};
 
 			// Create the module elements.
 			foreach( var env in specifiedEnvironments )
@@ -175,13 +198,40 @@ namespace MFiles.SDK.Tasks
 		}
 
 		[Required]
-		public string Name { get; set; }
+		public string ApplicationName { get; set; }
 
 		[Required]
 		public string Guid { get; set; }
 
 		[Required]
+		public string ApplicationVersion { get; set; }
+
+		[Required]
+		public string Description { get; set; }
+
+		[Required]
+		public string Publisher { get; set; }
+
+		[Required]
+		public string Copyright { get; set; }
+
+		[Required]
+		public string MFilesVersion { get; set; }
+
+		[Required]
+		public string EnabledByDefault { get; set; }
+
+		[Required]
+		public string Optional { get; set; }
+
+		[Required]
+		public string MasterApplicationGuid { get; set; }
+
+		[Required]
 		public ITaskItem[] SourceFiles { get; set; }
+
+		[Required]
+		public ITaskItem[] NoBuildFiles { get; set; }
 
 		[Required]
 		public string OutputFile { get; set; }
@@ -189,5 +239,6 @@ namespace MFiles.SDK.Tasks
 		public string Version { get; set; }
 		public ITaskItem[] References { get; set; }
 		public string[] DefaultEnvironments { get; set; }
+		public string[] Platforms { get; set; }
 	}
 }

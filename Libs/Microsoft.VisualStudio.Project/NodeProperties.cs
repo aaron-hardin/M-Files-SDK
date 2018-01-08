@@ -308,6 +308,29 @@ namespace Microsoft.VisualStudio.Project
 	public class FileNodeProperties : NodeProperties
 	{
 		#region properties
+		[SRCategoryAttribute( SR.Advanced )]
+		[LocDisplayName( SR.CopyToOutputDirectory )]
+		[SRDescriptionAttribute( SR.CopyToOutputDirectoryDescription )]
+		public virtual CopyToOutputDirectory CopyToOutputDirectory
+		{
+			get
+			{
+				string value = this.Node.ItemNode.GetEvaluatedMetadata( ProjectFileConstants.CopyToOutputDirectory );
+				if( string.IsNullOrEmpty( value ) )
+				{
+					return CopyToOutputDirectory.DoNotCopy;
+				}
+				return ( CopyToOutputDirectory )Enum.Parse( typeof( CopyToOutputDirectory ), value );
+			}
+			set
+			{
+				if( value == CopyToOutputDirectory.DoNotCopy )
+					this.Node.ItemNode.SetMetadata( ProjectFileConstants.CopyToOutputDirectory, null );
+				else
+					this.Node.ItemNode.SetMetadata( ProjectFileConstants.CopyToOutputDirectory, value.ToString() );
+			}
+		}
+
 		[SRCategoryAttribute(SR.Advanced)]
 		[LocDisplayName(SR.BuildAction)]
 		[SRDescriptionAttribute(SR.BuildActionDescription)]

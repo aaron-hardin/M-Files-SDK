@@ -538,4 +538,19 @@ Are you sure you want to change the Target Framework for this project?</value>
   <data name="ReloadPromptOnTargetFxChangedCaption" xml:space="preserve">
     <value>Target Framework Change</value>
   </data>
+  <data name="CopyAlways" xml:space="preserve">
+    <value>Copy always</value>
+  </data>
+  <data name="CopyIfNewer" xml:space="preserve">
+    <value>Copy if newer</value>
+  </data>
+  <data name="CopyToOutputDirectory" xml:space="preserve">
+    <value>Copy to Output Directory</value>
+  </data>
+  <data name="CopyToOutputDirectoryDescription" xml:space="preserve">
+    <value>Specifies the source file will be copied to the output directory.</value>
+  </data>
+  <data name="DoNotCopy" xml:space="preserve">
+    <value>Do not copy</value>
+  </data>
 </root>

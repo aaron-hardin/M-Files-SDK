@@ -90,6 +90,7 @@
     <Compile Include="PackageDefinition\ApplicationDashboard.cs" />
     <Compile Include="PackageDefinition\ApplicationDefinition.cs" />
     <Compile Include="PackageDefinition\ApplicationFile.cs" />
+    <Compile Include="PackageDefinition\Platform.cs" />
     <Compile Include="PackageMFilesApplication.cs" />
     <Compile Include="PackageDefinition\ApplicationModule.cs" />
     <Compile Include="PackageModel\Reference.cs" />

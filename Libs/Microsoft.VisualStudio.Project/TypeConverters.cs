@@ -215,6 +215,83 @@ namespace Microsoft.VisualStudio.Project
 		}
 	}
 
+	internal class CopyToOutputDirectoryConverter : EnumConverter
+	{
+
+		public CopyToOutputDirectoryConverter()
+			: base( typeof( CopyToOutputDirectory ) )
+		{
+
+		}
+
+		public override bool CanConvertFrom( ITypeDescriptorContext context, Type sourceType )
+		{
+			if( sourceType == typeof( string ) )
+				return true;
+
+			return base.CanConvertFrom( context, sourceType );
+		}
+
+		public override object ConvertFrom( ITypeDescriptorContext context, CultureInfo c, object value )
+		{
+			CultureInfo culture = CultureInfo.CurrentUICulture;
+			string str = value as string;
+
+			if( str != null )
+			{
+				if( str == SR.GetString( SR.CopyAlways, culture ) )
+					return CopyToOutputDirectory.Always;
+
+				if( str == SR.GetString( SR.CopyIfNewer, culture ) )
+					return CopyToOutputDirectory.PreserveNewest;
+
+				if( str == SR.GetString( SR.DoNotCopy, culture ) )
+					return CopyToOutputDirectory.DoNotCopy;
+			}
+			return base.ConvertFrom( context, culture, value );
+		}
+
+		public override object ConvertTo( ITypeDescriptorContext context, CultureInfo c, object value, Type destinationType )
+		{
+			CultureInfo culture = CultureInfo.CurrentUICulture;
+			if( destinationType == typeof( string ) )
+			{
+				string result = null;
+
+				// In some cases if multiple nodes are selected the windows form engine
+				// calls us with a null value if the selected node's property values are not equal
+				if( value != null )
+				{
+					if( ( ( CopyToOutputDirectory )value ) == CopyToOutputDirectory.DoNotCopy )
+						result = SR.GetString( SR.DoNotCopy, culture );
+					if( ( ( CopyToOutputDirectory )value ) == CopyToOutputDirectory.Always )
+						result = SR.GetString( SR.CopyAlways, culture );
+					if( ( ( CopyToOutputDirectory )value ) == CopyToOutputDirectory.PreserveNewest )
+						result = SR.GetString( SR.CopyIfNewer, culture );
+				}
+				else
+				{
+					result = "";
+				}
+
+				if( result != null )
+					return result;
+			}
+
+			return base.ConvertTo( context, culture, value, destinationType );
+		}
+
+		public override bool GetStandardValuesSupported( System.ComponentModel.ITypeDescriptorContext context )
+		{
+			return true;
+		}
+
+		public override System.ComponentModel.TypeConverter.StandardValuesCollection GetStandardValues( System.ComponentModel.ITypeDescriptorContext context )
+		{
+			return new StandardValuesCollection( new CopyToOutputDirectory[] { CopyToOutputDirectory.Always, CopyToOutputDirectory.DoNotCopy, CopyToOutputDirectory.PreserveNewest } );
+		}
+	}
+
 	public class FrameworkNameConverter : TypeConverter
 	{
 		public FrameworkNameConverter()

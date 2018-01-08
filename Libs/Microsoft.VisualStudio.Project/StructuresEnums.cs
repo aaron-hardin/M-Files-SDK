@@ -73,6 +73,14 @@ namespace Microsoft.VisualStudio.Project
 		URL
 	}
 
+	[PropertyPageTypeConverterAttribute( typeof( CopyToOutputDirectoryConverter ) )]
+	public enum CopyToOutputDirectory
+	{
+		DoNotCopy,
+		Always,
+		PreserveNewest,
+	}
+
 	/// <summary>
 	/// An enumeration that describes the type of action to be taken by the build.
 	/// </summary>

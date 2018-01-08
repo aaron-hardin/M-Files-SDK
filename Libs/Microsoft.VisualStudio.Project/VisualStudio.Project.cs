@@ -78,10 +78,14 @@ namespace Microsoft.VisualStudio.Project
 		internal const string Compile = "Compile";
 		internal const string ConfirmExtensionChange = "ConfirmExtensionChange";
 		internal const string Content = "Content";
+		internal const string CopyAlways = "CopyAlways";
+		internal const string CopyIfNewer = "CopyIfNewer";
 		internal const string CopyToLocal = "CopyToLocal";
 		internal const string CopyToLocalDescription = "CopyToLocalDescription";
-        internal const string EmbedInteropTypes = "EmbedInteropTypes";
-        internal const string EmbedInteropTypesDescription = "EmbedInteropTypesDescription";
+		internal const string CopyToOutputDirectory = "CopyToOutputDirectory";
+		internal const string CopyToOutputDirectoryDescription = "CopyToOutputDirectoryDescription";
+		internal const string EmbedInteropTypes = "EmbedInteropTypes";
+		internal const string EmbedInteropTypesDescription = "EmbedInteropTypesDescription";
 		internal const string CustomTool = "CustomTool";
 		internal const string CustomToolDescription = "CustomToolDescription";
 		internal const string CustomToolNamespace = "CustomToolNamespace";
@@ -96,6 +100,7 @@ namespace Microsoft.VisualStudio.Project
 		internal const string Detailed = "Detailed";
 		internal const string Diagnostic = "Diagnostic";
 		internal const string DirectoryExistError = "DirectoryExistError";
+		internal const string DoNotCopy = "DoNotCopy";
 		internal const string EditorViewError = "EditorViewError";
 		internal const string EmbeddedResource = "EmbeddedResource";
 		internal const string Error = "Error";
