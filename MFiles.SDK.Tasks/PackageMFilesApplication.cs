@@ -38,7 +38,7 @@ namespace MFiles.SDK.Tasks
 			// Serialize the application definition file.
 			var namespaces = new XmlSerializerNamespaces();
 			namespaces.Add( "xsi", "http://www.w3.org/2001/XMLSchema-instance" ); // TODO: is this correct?
-			namespaces.Add( "xsd", "http://www.m-files.com/schemas/appdef-client-v3.xsd" ); // TODO: is this correct?
+			namespaces.Add( "noNamespaceSchemaLocation", "http://www.m-files.com/schemas/appdef-client-v3.xsd" ); // TODO: is this correct?
 			var stream = new MemoryStream();
 			var serializer = new XmlSerializer( typeof( ApplicationDefinition ) );
 			serializer.Serialize( stream, appDef, namespaces );
