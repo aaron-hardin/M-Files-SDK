@@ -62,6 +62,7 @@ namespace MFiles.SDK.Tasks
 			ReactConfig.Configure();
 
 			// Add the project files.
+			Dictionary<string, string> packages = new Dictionary<string, string>();
 			foreach( var file in files )
 			{
 				if( file.BuildAction == BuildAction.None && file.CopyToOutputDirectory == false )
@@ -78,6 +79,22 @@ namespace MFiles.SDK.Tasks
 					Log.LogMessage( MessageImportance.Low, $"Transforming: {fileName}" );
 					var result = babel.TransformFile( file.FullPath );
 					Log.LogMessage( MessageImportance.Low, $"Transformed: {fileName}" );
+					int indexOfNewLine = result.IndexOfAny(new [] { '\r', '\n' });
+					string firstLine = indexOfNewLine == -1 ? result : result.Substring(0, indexOfNewLine);
+					if (firstLine.StartsWith("//#package:"))
+					{
+						// TODO: consider replacing firstLine here with the filename
+						var packageName = firstLine.Substring(11).Trim();
+						if (packages.ContainsKey(packageName))
+						{
+							packages[packageName] += Environment.NewLine + result;
+						}
+						else
+						{
+							packages.Add(packageName, result);
+						}
+						continue;
+					}
 					var path = file.PathInProject;
 					if( Path.GetExtension( fileName ) == ".jsx" )
 					{
@@ -92,6 +109,12 @@ namespace MFiles.SDK.Tasks
 				{
 					outputZip.AddFile( file.FullPath ).FileName = file.PathInProject;
 				}
+			}
+
+			foreach (var packageKvp in packages)
+			{
+				var fileName = Path.GetFileName(packageKvp.Key);
+				outputZip.AddEntry(fileName, packageKvp.Value).FileName = packageKvp.Key;
 			}
 
 			// Add the referenced scripts.
