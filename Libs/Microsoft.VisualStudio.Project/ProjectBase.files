@@ -13,27 +13,27 @@
       <Aliases>global</Aliases>
     </Reference>
     -->
-    <Reference Include="Microsoft.Build">
+    <!-- <Reference Include="Microsoft.Build">
       <Aliases>global</Aliases>
-    </Reference>
-    <Reference Include="Microsoft.Build.Framework">
+    </Reference> -->
+    <!-- <Reference Include="Microsoft.Build.Framework">
       <Aliases>global</Aliases>
-    </Reference>
-    <Reference Include="Microsoft.Build.Utilities.v4.0">
+    </Reference> -->
+    <!-- <Reference Include="Microsoft.Build.Utilities.v4.0">
       <Aliases>global</Aliases>
-    </Reference>
+    </Reference> -->
     <!-- <Reference Include="Microsoft.VisualStudio.VSHelp"/>
     <Reference Include="Microsoft.VisualStudio.Shell.Design" /> -->
-    <Reference Include="Microsoft.VisualStudio.ProjectAggregator" />
-    <Reference Include="VsLangProj" />
-    <Reference Include="VSLangProj80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <!-- <Reference Include="Microsoft.VisualStudio.ProjectAggregator" /> -->
+    <!-- <Reference Include="VsLangProj" />
+    <Reference Include="VSLangProj80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" /> -->
     <Reference Include="System.Design">
       <Aliases>global</Aliases>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="microsoft.VisualStudio.CommonIDE, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <!-- <Reference Include="microsoft.VisualStudio.CommonIDE, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
-    </Reference>
+    </Reference> -->
     <Reference Include="System.Core">
     </Reference>
   </ItemGroup>
