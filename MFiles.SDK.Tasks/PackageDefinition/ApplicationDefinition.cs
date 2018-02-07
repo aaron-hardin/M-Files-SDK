@@ -58,5 +58,11 @@ namespace MFiles.SDK.Tasks.PackageDefinition
 		[XmlArray( ElementName = "dashboards" )]
 		[XmlArrayItem( ElementName = "dashboard" )]
 		public List<ApplicationDashboard> Dashboards { get; set; }
+
+		public bool ShouldSerializeMasterApplicationGuid()
+		{
+			// Serialize if not empty
+			return !string.IsNullOrEmpty( MasterApplicationGuid );
+		}
 	}
 }

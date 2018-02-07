@@ -256,7 +256,6 @@ namespace MFiles.SDK.Tasks
 		[Required]
 		public string Optional { get; set; }
 
-		[Required]
 		public string MasterApplicationGuid { get; set; }
 
 		[Required]
